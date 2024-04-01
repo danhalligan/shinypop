@@ -144,6 +144,26 @@ $(function() {
         }
       );
     });
+
+    var configLoading = document.querySelectorAll(
+      'script[data-for="notiflix-loading-config"]'
+    );
+    if (configLoading.length > 0) {
+      configLoading = JSON.parse(configLoading[0].innerHTML);
+    } else {
+      configLoading = {};
+    }
+    Notiflix.Loading.init(configLoading);
+    Shiny.addCustomMessageHandler("shinypop-notiflix-loading", function (data) {
+      Notiflix.Loading.dots(
+        data.message
+      );
+    });
+
+    Shiny.addCustomMessageHandler("shinypop-notiflix-loading-close", function (data) {
+      Notiflix.Loading.remove();
+    });
+
   }
 
   // favico

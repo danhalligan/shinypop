@@ -262,6 +262,65 @@ nx_confirm <- function(inputId, title,
 }
 
 
+# loading -----------------------------------------------------------------
 
+#' @title Loading indicator with notiflix.js
+#'
+#' @description Initialize with \code{use_notiflix_loading} in UI before using \code{nx_loading} server-side.
+#'
+#' @param message Message for loading indicator.
+#' @param session Shiny session.
+#'
+#' @note Configuration is done with \code{use_notiflix_loading} in UI per application.
+#'
+#' @export
+#'
+#' @name notiflix-loading
+#'
+#' @importFrom shiny getDefaultReactiveDomain
+#' @importFrom htmltools doRenderTags
+#'
+#' @examples
+#' if (interactive()) {
+#'   library(shiny)
+#'
+#'   ui <- fluidPage(
+#'     use_notiflix_loading(),
+#'     tags$h2("notiflix confirmation pop-up"),
+#'     actionButton("load", "Demonstrate loading")
+#'   )
+#'
+#'   server <- function(input, output, session) {
+#'     observeEvent(input$show, {
+#'       nx_loading(message = "Loading demo")
+#'       Sys.sleep(5)
+#'       nx_loading_close()
+#'     })
+#'   }
+#'
+#'   shinyApp(ui, server)
+#' }
+nx_loading <- function(inputId,
+                       message = NULL,
+                       session = shiny::getDefaultReactiveDomain()) {
+  if (is.null(message)) {
+    message <- " "
+  }
+  session$sendCustomMessage(
+    type = "shinypop-notiflix-loading",
+    message = list(
+      id = session$ns(inputId),
+      message = doRenderTags(message)
+    )
+  )
+}
 
-
+#' @export
+#'
+#' @rdname notiflix-loading
+nx_loading_close <- function(session = shiny::getDefaultReactiveDomain()) {
+  session$sendCustomMessage(
+    type = "shinypop-notiflix-loading-close",
+    message = list()
+  )
+}

@@ -255,6 +255,45 @@ use_notiflix_confirm <- function(backgroundColor = "#f8f8f8",
 }
 
 
+#' @param backgroundColor Changes the background color.
+#' @param messageFontSize Changes the font-size of the message text.
+#' @param messageMaxLength Ignores characters of message text after the specified number.
+#' @param cssAnimation Notiflix uses CSS animations to show/hide the Reports.
+#'  If you don't want to use CSS animations you can set this option to \code{FALSE}.
+#' @param cssAnimationDuration Changes the CSS animations duration as milliseconds. Tip: 360 ms = 0.36 second.
+#'
+#' @rdname notiflix-loading
+#' @export
+#' @importFrom htmltools tags attachDependencies
+#' @importFrom jsonlite toJSON
+use_notiflix_loading <- function(backgroundColor = "#f8f8f8",
+                                 messageFontSize = "13px",
+                                 messageMaxLength = 400,
+                                 cssAnimation = TRUE,
+                                 cssAnimationDuration = 360) {
+  attachDependencies(
+    x = tags$div(
+      class = "notiflix-deps",
+      tags$script(
+        id = "notiflix-loading-config",
+        type = "application/json",
+        `data-for` = "notiflix-loading-config",
+        toJSON(dropNulls(list(
+          # backgroundColor = backgroundColor,
+          # messageFontSize = messageFontSize,
+          # messageMaxLength = messageMaxLength,
+          # cssAnimation = cssAnimation,
+          # cssAnimationDuration = cssAnimationDuration
+        )), auto_unbox = TRUE, json_verbatim = TRUE)
+      )
+    ),
+    value = list(
+      notiflix_dependencies(),
+      shinypop_dependencies()
+    )
+  )
+}
+
 
 
 
