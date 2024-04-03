@@ -266,11 +266,13 @@ use_notiflix_confirm <- function(backgroundColor = "#f8f8f8",
 #' @export
 #' @importFrom htmltools tags attachDependencies
 #' @importFrom jsonlite toJSON
-use_notiflix_loading <- function(backgroundColor = "#f8f8f8",
-                                 messageFontSize = "13px",
-                                 messageMaxLength = 400,
+use_notiflix_loading <- function(backgroundColor = "rgba(0,0,0,0.8)",
+                                 messageID = "NotiflixLoadingMessage",
+                                 messageFontSize = "15px",
+                                 messageMaxLength = 34,
+                                 messageColor = "#dcdcdc",
                                  cssAnimation = TRUE,
-                                 cssAnimationDuration = 360) {
+                                 cssAnimationDuration = 400) {
   attachDependencies(
     x = tags$div(
       class = "notiflix-deps",
@@ -279,11 +281,13 @@ use_notiflix_loading <- function(backgroundColor = "#f8f8f8",
         type = "application/json",
         `data-for` = "notiflix-loading-config",
         toJSON(dropNulls(list(
-          # backgroundColor = backgroundColor,
-          # messageFontSize = messageFontSize,
-          # messageMaxLength = messageMaxLength,
-          # cssAnimation = cssAnimation,
-          # cssAnimationDuration = cssAnimationDuration
+          backgroundColor = backgroundColor,
+          messageID = messageID,
+          messageFontSize = messageFontSize,
+          messageMaxLength = messageMaxLength,
+          messageColor = messageColor,
+          cssAnimation = cssAnimation,
+          cssAnimationDuration = cssAnimationDuration
         )), auto_unbox = TRUE, json_verbatim = TRUE)
       )
     ),

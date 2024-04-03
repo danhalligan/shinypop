@@ -59,6 +59,14 @@ test_that("use_notiflix_confirm works", {
 })
 
 
+test_that("use_notiflix_loading works", {
+  
+  deps <- htmltools::findDependencies(use_notiflix_loading())
+  
+  expect_true(length(deps) > 0)
+  expect_true("shinypop" %in% get_name(deps))
+})
+
 test_that("use_favico works", {
   
   deps <- htmltools::findDependencies(use_favico())

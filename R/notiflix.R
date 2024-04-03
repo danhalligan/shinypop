@@ -300,8 +300,7 @@ nx_confirm <- function(inputId, title,
 #'
 #'   shinyApp(ui, server)
 #' }
-nx_loading <- function(inputId,
-                       message = NULL,
+nx_loading <- function(message = NULL,
                        session = shiny::getDefaultReactiveDomain()) {
   if (is.null(message)) {
     message <- " "
@@ -309,7 +308,6 @@ nx_loading <- function(inputId,
   session$sendCustomMessage(
     type = "shinypop-notiflix-loading",
     message = list(
-      id = session$ns(inputId),
       message = doRenderTags(message)
     )
   )
